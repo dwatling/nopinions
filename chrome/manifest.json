@@ -1,16 +1,16 @@
 {
     "name": "NOpinions",
-    "version": "1.0",
-    "description": "Get rid of the opinion section on The new York Times",
+    "version": "1.1",
+    "description": "Get rid of the opinion section on various news sites",
     "icons": {
       "128": "icon.png"
-    },    
-    "permissions": ["https://*.nytimes.com/", "activeTab"],
+    },
+    "permissions": ["https://*.nytimes.com/", "https://*.cnn.com/*", "https://*.washingtonpost.com/*", "activeTab"],
     "content_scripts": [
 	{
-	    "matches": ["https://*.nytimes.com/*"],
+	    "matches": ["https://*.nytimes.com/*", "https://*.cnn.com/*", "https://*.washingtonpost.com/*"],
 	    "js": ["index.js"]
 	}
-    ],    
+    ],
     "manifest_version": 2
 }
