@@ -1,20 +1,22 @@
 
-// find the opinion section and get rid of it.
-var sections = document.getElementsByTagName('section');
-for(var i = 0; i < sections.length; ++i) {
-	if(sections[i].getAttribute('data-block-tracking-id') === 'Opinion') {
-		sections[i].style.display = 'none';
+let nodesToHide = [];
+let queries = [
+	{selector: `section[data-block-tracking-id='Opinion']`},		// NYTimes.com
+	{selector: `div.column a[href='/opinions']`, parent: true},	// CNN.com
+	{selector: `.opinions-chain`},	// WashingtonPost.com
+];
+
+for (let query of queries) {
+	var nodes = document.querySelectorAll(query.selector);
+	for (let i = 0; i < nodes.length; i ++) {
+		if (query.parent) {
+			nodesToHide.push(nodes[i].parentNode);
+		} else {
+			nodesToHide.push(nodes[i]);
+		}
 	}
 }
 
-// Find the opinion section on the homepage for CNN
-var opinionSection = document.querySelectorAll('div.column a[href=\'/opinions\']')
-if (opinionSection && opinionSection.length === 1) {
-	opinionSection[0].parentElement.style.display = 'none';
-}
-
-// Washingtonpost.com
-var opinionSection = document.getElementsByClassName('opinions-chain');
-if (opinionSection && opinionSection.length === 1) {
-	opinionSection[0].style.display = 'none';
+for (let node of nodesToHide) {
+	node.style.display = 'none';
 }
